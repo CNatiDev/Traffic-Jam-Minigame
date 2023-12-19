@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static PathFollower;
 
 public class Moveable : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class Moveable : MonoBehaviour
 
     private IPathFollower pathFollower;
     private Vector3 targetPosition;
+    public GameObject target;
+    public List<Vector3> pathToSelectedPoint;
 
     private void Start()
     {
@@ -27,8 +30,9 @@ public class Moveable : MonoBehaviour
 
     private void HandleInput()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
         {
+            target.transform.position = targetPosition;
             FollowClosestPoint();
         }
     }
@@ -55,16 +59,18 @@ public class Moveable : MonoBehaviour
 
     private void FollowPath(Vector3 nextPathPoint)
     {
-        nextPathPoint = pathFollower.GetNextPathPoint();
-
-        if (Vector3.Distance(transform.position, nextPathPoint) < 0.9f)
+        //nextPathPoint = pathFollower.GetNextPathPoint();
+        if(Vector3.Distance(transform.position, nextPathPoint)>0.1f)
         {
-            pathFollower.MoveToNextPoint();
+            if (Vector3.Distance(transform.position, nextPathPoint) < 0.9f)
+            {
+                pathFollower.MoveToNextPoint();
+            }
+
+            MoveForward();
+            RotateTowards(nextPathPoint);
         }
 
-        MoveForward();
-        RotateTowards(nextPathPoint);
-        LogDebug(nextPathPoint.ToString());
     }
 
     private void FollowClosestPoint()
@@ -77,13 +83,30 @@ public class Moveable : MonoBehaviour
 
             // Find the closest path point (either main point or ramification point)
             PathFollower.PathPoint closestPoint = pathFollower.FindClosestPoint(targetPosition);
+            Debug.Log(closestPoint.name);
 
             // Generate a path to the selected point
-            List<Vector3> pathToSelectedPoint = pathFollower.GeneratePathToSelectedPoint(closestPoint);
+            pathToSelectedPoint = pathFollower.GeneratePathToSelectedPoint(closestPoint);
+            
             // Log the generated path for debugging
             foreach (var point in pathToSelectedPoint)
             {
                 FollowPath(point);
+            }
+        }
+    }
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+
+        // Draw the original path using Gizmos
+        for (int i = 0; i < pathToSelectedPoint.Count; i++)
+        {
+            Gizmos.DrawSphere(pathToSelectedPoint[i], 0.1f);
+
+            if (i < pathToSelectedPoint.Count - 1)
+            {
+                Gizmos.DrawLine(pathToSelectedPoint[i], pathToSelectedPoint[i + 1]);
             }
         }
     }

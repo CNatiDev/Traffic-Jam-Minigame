@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using static PathFollower;
 
 [CustomEditor(typeof(PathFollower))]
 public class PathFollowerEditor : Editor
@@ -12,6 +13,7 @@ public class PathFollowerEditor : Editor
     {
         pathFollower = (PathFollower)target;
         pathPointsProperty = serializedObject.FindProperty("pathPoints");
+
     }
 
     public override void OnInspectorGUI()
@@ -21,49 +23,64 @@ public class PathFollowerEditor : Editor
         serializedObject.ApplyModifiedProperties();
     }
 
-    private void OnSceneGUI()
+    private PathFollower.PathPoint DrawHandlesRecursively(PathFollower.PathPoint pathPoint)
     {
-            serializedObject.Update();
+        EditorGUI.BeginChangeCheck();
 
-            EditorGUI.BeginChangeCheck();
+        // Draw the handle for the current path point
+        Vector3 newPosition = Handles.PositionHandle(pathPoint.pointPosition, Quaternion.identity);
 
-            // Draw the handles for each path point and its ramification points
-            for (int i = 0; i < pathFollower.pathPoints.Count; i++)
+        // If the position has changed, update the path point
+        if (EditorGUI.EndChangeCheck())
+        {
+            Undo.RecordObject(pathFollower, "Move Path Point");
+            pathPoint.pointPosition = newPosition;
+        }
+
+        // Draw handles for ramification points
+        if (pathPoint.hasRamification)
+        {
+            for (int j = 0; j < pathPoint.ramificationPoints.Count; j++)
             {
-                // Access the PathPoint struct correctly
-                PathFollower.PathPoint pathPoint = pathFollower.pathPoints[i];
+                PathFollower.RamificationPoint ramificationPoint = pathPoint.ramificationPoints[j];
 
-                // Draw the handle for the main path point
-                Vector3 newPosition = Handles.PositionHandle(pathPoint.pointPosition, Quaternion.identity);
+                // Draw the handle for the ramification point
+                Vector3 newRamificationPosition = Handles.PositionHandle(ramificationPoint.pointPosition, Quaternion.identity);
 
-                // If the position has changed, update the path point
+                // If the position has changed, update the ramification point
                 if (EditorGUI.EndChangeCheck())
                 {
-                    Undo.RecordObject(pathFollower, "Move Path Point");
+                    Undo.RecordObject(pathFollower, "Move Ramification Point");
+                    ramificationPoint.pointPosition = newRamificationPosition;
                     pathPoint.pointPosition = newPosition;
-                    pathFollower.pathPoints[i] = pathPoint;
+                    pathPoint.ramificationPoints[j] = ramificationPoint;
                 }
 
-                // Draw the handles for ramification points
-                if (pathPoint.hasRamification)
+                // Recursively draw handles for nestedPathPoints
+                if (ramificationPoint.hasRamification1)
                 {
-                    for (int j = 0; j < pathPoint.ramificationPoints.Count; j++)
+                    for (int k = 0; k < ramificationPoint.nestedPathPoints.Count; k++)
                     {
-                        Vector3 newRamificationPosition = Handles.PositionHandle(pathPoint.ramificationPoints[j], Quaternion.identity);
-
-                        // If the position has changed, update the ramification point
-                        if (EditorGUI.EndChangeCheck())
-                        {
-                            Undo.RecordObject(pathFollower, "Move Ramification Point");
-                            pathPoint.ramificationPoints[j] = newRamificationPosition;
-                            pathFollower.pathPoints[i] = pathPoint;
-                        }
+                        ramificationPoint.nestedPathPoints[k] = DrawHandlesRecursively(ramificationPoint.nestedPathPoints[k]);
                     }
                 }
             }
+        }
 
-            serializedObject.ApplyModifiedProperties();
-        
+        return pathPoint; // Return the updated path point
     }
+
+    private void OnSceneGUI()
+    {
+        serializedObject.Update();
+
+        for (int i = 0; i < pathFollower.pathPoints.Count; i++)
+        {
+            pathFollower.pathPoints[i] = DrawHandlesRecursively(pathFollower.pathPoints[i]);
+        }
+
+        serializedObject.ApplyModifiedProperties();
+    }
+
 
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,8 +9,17 @@ public class PathFollower : MonoBehaviour, IPathFollower
     {
         public Vector3 pointPosition;
         public bool hasRamification;
-        public List<Vector3> ramificationPoints;
+        public List<RamificationPoint> ramificationPoints;
         public string name;
+    }
+
+    [System.Serializable]
+    public struct RamificationPoint
+    {
+        public Vector3 pointPosition;
+        public string name; 
+        public bool hasRamification1;
+        public List<PathPoint> nestedPathPoints;
     }
 
     public List<PathPoint> pathPoints = new List<PathPoint>();
@@ -19,7 +29,7 @@ public class PathFollower : MonoBehaviour, IPathFollower
     {
         Gizmos.color = Color.yellow;
 
-        // Draw the path using Gizmos
+        // Draw the original path using Gizmos
         for (int i = 0; i < pathPoints.Count; i++)
         {
             Gizmos.DrawSphere(pathPoints[i].pointPosition, 0.1f);
@@ -29,17 +39,46 @@ public class PathFollower : MonoBehaviour, IPathFollower
                 Gizmos.DrawLine(pathPoints[i].pointPosition, pathPoints[i + 1].pointPosition);
             }
 
-            if (pathPoints[i].hasRamification)
+        }
+
+
+        // Draw the original path using Gizmos
+        for (int i = 0; i < pathPoints.Count; i++)
+        {
+            DrawPathPointGizmos(pathPoints[i]);
+        }
+    }
+
+    void DrawPathPointGizmos(PathPoint pathPoint)
+    {
+        Gizmos.DrawSphere(pathPoint.pointPosition, 0.1f);
+
+        if (pathPoint.hasRamification)
+        {
+            Gizmos.color = Color.red;
+            foreach (var ramificationPoint in pathPoint.ramificationPoints)
             {
-                Gizmos.color = Color.red;
-                foreach (var ramificationPoint in pathPoints[i].ramificationPoints)
-                {
-                    Gizmos.DrawLine(pathPoints[i].pointPosition, ramificationPoint);
-                }
-                Gizmos.color = Color.yellow;
+                Gizmos.DrawLine(pathPoint.pointPosition, ramificationPoint.pointPosition);
+                DrawRamificationGizmos(pathPoint, ramificationPoint);
+            }
+            Gizmos.color = Color.yellow;
+        }
+    }
+
+    void DrawRamificationGizmos(PathPoint pathPoint, RamificationPoint ramificationPoint)
+    {
+        Gizmos.DrawLine(pathPoint.pointPosition, ramificationPoint.pointPosition);
+
+        if (ramificationPoint.hasRamification1)
+        {
+            foreach (var point in ramificationPoint.nestedPathPoints)
+            {
+                Gizmos.DrawLine(ramificationPoint.pointPosition, point.pointPosition);
+                DrawPathPointGizmos(point);
             }
         }
     }
+
 
     public Vector3 GetNextPathPoint()
     {
@@ -62,60 +101,33 @@ public class PathFollower : MonoBehaviour, IPathFollower
 
     public PathPoint FindClosestPoint(Vector3 screenPoint)
     {
-        Ray ray = Camera.main.ScreenPointToRay(screenPoint);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit))
+        PathPoint closestPoint = new PathPoint();
+        float minDistance = float.MaxValue;
+        foreach (var point in pathPoints)
         {
-            Vector3 clickPoint = hit.point;
-
-            PathPoint closestPoint = pathPoints[0];
-            float minDistance = Vector3.Distance(clickPoint, closestPoint.pointPosition);
-
-            foreach (var pathPoint in pathPoints)
+            if (Vector3.Distance(point.pointPosition, screenPoint) < minDistance)
             {
-                float distance = Vector3.Distance(clickPoint, pathPoint.pointPosition);
-                if (distance < minDistance)
+                closestPoint = point;
+                minDistance = Vector3.Distance(point.pointPosition, screenPoint);
+            }
+            if (closestPoint.hasRamification)
+            {
+                foreach (var ramPoint in closestPoint.ramificationPoints)
                 {
-                    minDistance = distance;
-                    closestPoint = pathPoint;
-                }
-
-                if (pathPoint.hasRamification)
-                {
-                    foreach (var ramificationPoint in pathPoint.ramificationPoints)
+                    if (Vector3.Distance(ramPoint.pointPosition, screenPoint) < minDistance)
                     {
-                        distance = Vector3.Distance(clickPoint, ramificationPoint);
-                        if (distance < minDistance)
-                        {
-                            minDistance = distance;
-                            closestPoint = pathPoint;
-                        }
+                        // Handle the closest ramification point if needed
                     }
                 }
             }
-            return closestPoint;
         }
-
-        return new PathPoint(); // Return an empty PathPoint if no hit is detected
+        return closestPoint;
     }
 
     public List<Vector3> GeneratePathToSelectedPoint(PathPoint selectedPoint)
     {
         List<Vector3> pathToSelectedPoint = new List<Vector3>();
-
-        // Add the points from the current position to the selected point
-        pathToSelectedPoint.Add(transform.position);
-
-        // If the selected point is a ramification point, add its ramification points to the path
-        if (selectedPoint.hasRamification)
-        {
-            pathToSelectedPoint.AddRange(selectedPoint.ramificationPoints);
-        }
-
-        // Add the selected point to the path
-        pathToSelectedPoint.Add(selectedPoint.pointPosition);
-
+        // Implement path generation logic here
         return pathToSelectedPoint;
     }
 }

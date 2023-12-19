@@ -323,6 +323,33 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 5036607411688887279, guid: 5680d42f0ed6423488a34a91bf15c45b, type: 3}
+--- !u!54 &876460311
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 876460303}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &934873312 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b11e4cf4bd279e649984d0ba002ebe1a, type: 3}
@@ -342,6 +369,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   rotationSpeed: 200
+  target: {fileID: 1597652369}
+  pathToSelectedPoint: []
 --- !u!114 &934873318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -355,42 +384,46 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pathPoints:
-  - pointPosition: {x: 1.5213412, y: 0, z: -8.394039}
-    hasRamification: 0
-    ramificationPoints: []
-    name: 
-  - pointPosition: {x: 1.5213412, y: 0, z: -2.8752112}
+  - pointPosition: {x: 2.2448797, y: 0, z: -6.378299}
     hasRamification: 1
     ramificationPoints:
-    - {x: 8.506035, y: 0, z: -1.9838829}
-    name: 
-  - pointPosition: {x: 1.5213412, y: 0, z: 2.4097192}
+    - pointPosition: {x: 6.118983, y: 1.2849693, z: -1.9446692}
+      name: 
+      hasRamification1: 1
+      nestedPathPoints:
+      - pointPosition: {x: 3.8843641, y: 0, z: 4.1304026}
+        hasRamification: 0
+        ramificationPoints: []
+        name: 
+    name: dasd
+  - pointPosition: {x: -4.33, y: 0, z: -6.378299}
     hasRamification: 1
     ramificationPoints:
-    - {x: 8.600947, y: 2.37601, z: 1.9567697}
-    name: 
-  - pointPosition: {x: 1.5213412, y: 0, z: 7.1522546}
-    hasRamification: 0
-    ramificationPoints: []
-    name: 
-  - pointPosition: {x: -2.1499343, y: 0, z: 7.1522546}
-    hasRamification: 0
-    ramificationPoints: []
-    name: 
-  - pointPosition: {x: -2.1499343, y: 0, z: 1.8515058}
+    - pointPosition: {x: -4.490095, y: 1.2849693, z: -1.9446692}
+      name: 
+      hasRamification1: 1
+      nestedPathPoints:
+      - pointPosition: {x: 0.0044038296, y: 0, z: 5.6884966}
+        hasRamification: 0
+        ramificationPoints: []
+        name: 
+    name: dasd
+  - pointPosition: {x: -0.13033414, y: 0, z: 0.18706775}
     hasRamification: 1
     ramificationPoints:
-    - {x: -9.16, y: 0, z: 1.6870525}
-    name: 
-  - pointPosition: {x: -2.1499343, y: 0, z: -3.154022}
-    hasRamification: 1
-    ramificationPoints:
-    - {x: -9.132776, y: 0, z: -1.7300248}
-    name: 
-  - pointPosition: {x: -2.1499343, y: 0, z: -8.183936}
-    hasRamification: 0
-    ramificationPoints: []
-    name: 
+    - pointPosition: {x: -4.061033, y: 1.2849693, z: 2.6366646}
+      name: 
+      hasRamification1: 1
+      nestedPathPoints:
+      - pointPosition: {x: -2.43, y: 0, z: 5.571663}
+        hasRamification: 1
+        ramificationPoints:
+        - pointPosition: {x: 0, y: 0, z: 0}
+          name: 
+          hasRamification1: 0
+          nestedPathPoints: []
+        name: 
+    name: dasd
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -543,6 +576,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayArea
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5680d42f0ed6423488a34a91bf15c45b, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -550,4 +587,38 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5680d42f0ed6423488a34a91bf15c45b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 876460307}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5680d42f0ed6423488a34a91bf15c45b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 876460311}
   m_SourcePrefab: {fileID: 100100000, guid: 5680d42f0ed6423488a34a91bf15c45b, type: 3}
+--- !u!1 &1597652369
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1597652370}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1597652370
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1597652369}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.4590864, y: -19.248802, z: 5.8919325}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
