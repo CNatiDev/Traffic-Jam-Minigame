@@ -58,6 +58,7 @@ public class PathFollower : MonoBehaviour, IPathFollower
             Gizmos.color = Color.red;
             foreach (var ramificationPoint in pathPoint.ramificationPoints)
             {
+                Gizmos.DrawSphere(ramificationPoint.pointPosition, 0.1f);
                 Gizmos.DrawLine(pathPoint.pointPosition, ramificationPoint.pointPosition);
                 DrawRamificationGizmos(ramificationPoint);
             }

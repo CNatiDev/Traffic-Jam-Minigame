@@ -145,26 +145,9 @@ public class PathFollowerEditor : Editor
         {
             pathFollower.pathPoints[i] = DrawHandlesRecursively(pathFollower.pathPoints[i]);
             DrawButtons(pathFollower.pathPoints[i].pointPosition, pathFollower.pathPoints[i]);
-
-            // Check if the main path point has any ramification 
-            bool hasRamificationsOrNested = HasRamifications(pathFollower.pathPoints[i]);
-            if (hasRamificationsOrNested && !pathFollower.pathPoints[i].hasRamification)
-            {
-                PathFollower.PathPoint point = pathFollower.pathPoints[i];
-                point.hasRamification = true;
-                pathFollower.pathPoints[i] = point;
-            }
         }
         serializedObject.ApplyModifiedProperties();
     }
 
-    private bool HasRamifications(PathFollower.PathPoint pathPoint)
-    {
-        if (pathPoint.ramificationPoints.Count > 0)
-        {
-            return true;
-        }
 
-        return false;
-    }
 }

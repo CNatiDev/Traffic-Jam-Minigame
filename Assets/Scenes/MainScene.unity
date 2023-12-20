@@ -243,7 +243,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b11e4cf4bd279e649984d0ba002ebe1a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.15
+      value: -0.17
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b11e4cf4bd279e649984d0ba002ebe1a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -251,7 +251,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b11e4cf4bd279e649984d0ba002ebe1a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -9.71
+      value: -10.02
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b11e4cf4bd279e649984d0ba002ebe1a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -384,30 +384,54 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pathPoints:
-  - pointPosition: {x: 0.005106926, y: 0, z: -6.8174543}
+  - pointPosition: {x: 1.24, y: 0, z: -6.776918}
     hasRamification: 1
     ramificationPoints: []
-    name: 
-  - pointPosition: {x: 0.005106926, y: 0, z: 5.2341685}
+    name: Point 0
+  - pointPosition: {x: 1.2400448, y: 0, z: -1.6728158}
     hasRamification: 1
     ramificationPoints:
-    - pointPosition: {x: -7.0009737, y: 0, z: 0.2778988}
-      name: 
-      hasNestedPoint: 1
-      nestedPathPoints:
-      - pointPosition: {x: -1.18, y: 0, z: -2.587435}
-        hasRamification: 1
-        ramificationPoints:
-        - pointPosition: {x: 3.0134783, y: 0, z: -0.042958736}
-          name: 
-          hasNestedPoint: 1
-          nestedPathPoints:
-          - pointPosition: {x: 0.6449499, y: 0, z: 5.19956}
-            hasRamification: 0
-            ramificationPoints: []
-            name: 
-        name: 
-    name: 
+    - pointPosition: {x: 8.382704, y: 0, z: -1.5734013}
+      name: Point 1 Ramification 1
+      hasNestedPoint: 0
+      nestedPathPoints: []
+    name: Point 1
+  - pointPosition: {x: 1.24, y: 0, z: 1.27421}
+    hasRamification: 1
+    ramificationPoints:
+    - pointPosition: {x: 8.526222, y: 0, z: 1.219677}
+      name: Point 2 Ramification 1
+      hasNestedPoint: 0
+      nestedPathPoints: []
+    name: Point 2
+  - pointPosition: {x: 1.24, y: 0, z: 7.3379374}
+    hasRamification: 0
+    ramificationPoints: []
+    name: Point 3
+  - pointPosition: {x: -1.3153238, y: 0, z: 7.3379374}
+    hasRamification: 0
+    ramificationPoints: []
+    name: Point 4
+  - pointPosition: {x: -1.3153238, y: 0, z: 1.3194876}
+    hasRamification: 1
+    ramificationPoints:
+    - pointPosition: {x: -8.119047, y: 0, z: 1.377245}
+      name: Point 5 Ramification 1
+      hasNestedPoint: 0
+      nestedPathPoints: []
+    name: Point 5
+  - pointPosition: {x: -1.3153238, y: 0, z: -1.6542591}
+    hasRamification: 1
+    ramificationPoints:
+    - pointPosition: {x: -8.073202, y: 0, z: -1.388406}
+      name: Point 6 Ramifiaction 1
+      hasNestedPoint: 0
+      nestedPathPoints: []
+    name: Point 6
+  - pointPosition: {x: -1.3153238, y: 0, z: -6.782921}
+    hasRamification: 0
+    ramificationPoints: []
+    name: Point 7
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
