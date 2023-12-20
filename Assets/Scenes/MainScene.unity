@@ -383,7 +383,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aad915947a3d1cc4f992883cca6f2f6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathPoints: []
+  pathPoints:
+  - pointPosition: {x: 0.005106926, y: 0, z: -6.8174543}
+    hasRamification: 1
+    ramificationPoints: []
+    name: 
+  - pointPosition: {x: 0.005106926, y: 0, z: 5.2341685}
+    hasRamification: 1
+    ramificationPoints:
+    - pointPosition: {x: -7.0009737, y: 0, z: 0.2778988}
+      name: 
+      hasNestedPoint: 1
+      nestedPathPoints:
+      - pointPosition: {x: -1.18, y: 0, z: -2.587435}
+        hasRamification: 1
+        ramificationPoints:
+        - pointPosition: {x: 3.0134783, y: 0, z: -0.042958736}
+          name: 
+          hasNestedPoint: 1
+          nestedPathPoints:
+          - pointPosition: {x: 0.6449499, y: 0, z: 5.19956}
+            hasRamification: 0
+            ramificationPoints: []
+            name: 
+        name: 
+    name: 
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0

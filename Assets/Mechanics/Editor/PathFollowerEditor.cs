@@ -13,7 +13,6 @@ public class PathFollowerEditor : Editor
     {
         pathFollower = (PathFollower)target;
         pathPointsProperty = serializedObject.FindProperty("pathPoints");
-
     }
 
     public override void OnInspectorGUI()
@@ -35,15 +34,16 @@ public class PathFollowerEditor : Editor
         if (GUILayout.Button("+", GUILayout.Width(20), GUILayout.Height(20)))
         {
             Undo.RecordObject(pathFollower, "Add Ramification Point");
-            Debug.Log("Add");
-            pathPoint.hasRamification = true;
-            pathPoint.ramificationPoints.Add(new PathFollower.RamificationPoint());
+            if (pathPoint.hasRamification)
+                pathPoint.ramificationPoints.Add(new PathFollower.RamificationPoint());
+            else
+                Debug.LogWarning("hasRamification is false");
+
 
         }
         if (GUILayout.Button("-", GUILayout.Width(20), GUILayout.Height(20)) && pathPoint.ramificationPoints.Count > 0)
         {
             Undo.RecordObject(pathFollower, "Remove Ramification Point");
-            Debug.Log("Remove");
             pathPoint.ramificationPoints.RemoveAt(pathPoint.ramificationPoints.Count - 1);
         }
 
@@ -65,14 +65,14 @@ public class PathFollowerEditor : Editor
         if (GUILayout.Button("+", GUILayout.Width(20), GUILayout.Height(20)))
         {
             Undo.RecordObject(pathFollower, "Add Ramification Point");
-            pathPoint.nestedPathPoints.Add(new PathFollower.PathPoint());
-
-            Debug.Log(pathPoint.hasNestedPoint);
+            if (pathPoint.hasNestedPoint)
+                pathPoint.nestedPathPoints.Add(new PathFollower.PathPoint());
+            else
+                Debug.LogWarning("hasNestedPoint is false");
         }
         if (GUILayout.Button("-", GUILayout.Width(20), GUILayout.Height(20)) && pathPoint.nestedPathPoints.Count > 0)
         {
             Undo.RecordObject(pathFollower, "Remove Ramification Point");
-            Debug.Log("Remove");
             pathPoint.nestedPathPoints.RemoveAt(pathPoint.nestedPathPoints.Count - 1);
 
         }
@@ -146,7 +146,7 @@ public class PathFollowerEditor : Editor
             pathFollower.pathPoints[i] = DrawHandlesRecursively(pathFollower.pathPoints[i]);
             DrawButtons(pathFollower.pathPoints[i].pointPosition, pathFollower.pathPoints[i]);
 
-            // Check if the path point has any ramification or nested points
+            // Check if the main path point has any ramification 
             bool hasRamificationsOrNested = HasRamifications(pathFollower.pathPoints[i]);
             if (hasRamificationsOrNested && !pathFollower.pathPoints[i].hasRamification)
             {
@@ -161,15 +161,6 @@ public class PathFollowerEditor : Editor
     private bool HasRamifications(PathFollower.PathPoint pathPoint)
     {
         if (pathPoint.ramificationPoints.Count > 0)
-        {
-            return true;
-        }
-
-        return false;
-    }
-    private bool HasNested(PathFollower.RamificationPoint pathPoint)
-    {
-        if (pathPoint.nestedPathPoints.Count > 0)
         {
             return true;
         }
