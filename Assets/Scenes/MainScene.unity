@@ -383,47 +383,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aad915947a3d1cc4f992883cca6f2f6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathPoints:
-  - pointPosition: {x: 2.2448797, y: 0, z: -6.378299}
-    hasRamification: 1
-    ramificationPoints:
-    - pointPosition: {x: 6.118983, y: 1.2849693, z: -1.9446692}
-      name: 
-      hasRamification1: 1
-      nestedPathPoints:
-      - pointPosition: {x: 3.8843641, y: 0, z: 4.1304026}
-        hasRamification: 0
-        ramificationPoints: []
-        name: 
-    name: dasd
-  - pointPosition: {x: -4.33, y: 0, z: -6.378299}
-    hasRamification: 1
-    ramificationPoints:
-    - pointPosition: {x: -4.490095, y: 1.2849693, z: -1.9446692}
-      name: 
-      hasRamification1: 1
-      nestedPathPoints:
-      - pointPosition: {x: 0.0044038296, y: 0, z: 5.6884966}
-        hasRamification: 0
-        ramificationPoints: []
-        name: 
-    name: dasd
-  - pointPosition: {x: -0.13033414, y: 0, z: 0.18706775}
-    hasRamification: 1
-    ramificationPoints:
-    - pointPosition: {x: -4.061033, y: 1.2849693, z: 2.6366646}
-      name: 
-      hasRamification1: 1
-      nestedPathPoints:
-      - pointPosition: {x: -2.43, y: 0, z: 5.571663}
-        hasRamification: 1
-        ramificationPoints:
-        - pointPosition: {x: 0, y: 0, z: 0}
-          name: 
-          hasRamification1: 0
-          nestedPathPoints: []
-        name: 
-    name: dasd
+  pathPoints: []
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0

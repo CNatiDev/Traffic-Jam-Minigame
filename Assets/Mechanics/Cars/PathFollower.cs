@@ -18,7 +18,7 @@ public class PathFollower : MonoBehaviour, IPathFollower
     {
         public Vector3 pointPosition;
         public string name; 
-        public bool hasRamification1;
+        public bool hasNestedPoint;
         public List<PathPoint> nestedPathPoints;
     }
 
@@ -48,7 +48,7 @@ public class PathFollower : MonoBehaviour, IPathFollower
             DrawPathPointGizmos(pathPoints[i]);
         }
     }
-
+    
     void DrawPathPointGizmos(PathPoint pathPoint)
     {
         Gizmos.DrawSphere(pathPoint.pointPosition, 0.1f);
@@ -59,17 +59,15 @@ public class PathFollower : MonoBehaviour, IPathFollower
             foreach (var ramificationPoint in pathPoint.ramificationPoints)
             {
                 Gizmos.DrawLine(pathPoint.pointPosition, ramificationPoint.pointPosition);
-                DrawRamificationGizmos(pathPoint, ramificationPoint);
+                DrawRamificationGizmos(ramificationPoint);
             }
-            Gizmos.color = Color.yellow;
         }
     }
 
-    void DrawRamificationGizmos(PathPoint pathPoint, RamificationPoint ramificationPoint)
+    void DrawRamificationGizmos(RamificationPoint ramificationPoint)
     {
-        Gizmos.DrawLine(pathPoint.pointPosition, ramificationPoint.pointPosition);
 
-        if (ramificationPoint.hasRamification1)
+        if (ramificationPoint.hasNestedPoint)
         {
             foreach (var point in ramificationPoint.nestedPathPoints)
             {
@@ -78,8 +76,6 @@ public class PathFollower : MonoBehaviour, IPathFollower
             }
         }
     }
-
-
     public Vector3 GetNextPathPoint()
     {
         if (currentPathIndex < pathPoints.Count)
@@ -88,7 +84,6 @@ public class PathFollower : MonoBehaviour, IPathFollower
         }
         return Vector3.zero;
     }
-
     public void MoveToNextPoint()
     {
         currentPathIndex++;
@@ -123,11 +118,16 @@ public class PathFollower : MonoBehaviour, IPathFollower
         }
         return closestPoint;
     }
-
     public List<Vector3> GeneratePathToSelectedPoint(PathPoint selectedPoint)
     {
         List<Vector3> pathToSelectedPoint = new List<Vector3>();
         // Implement path generation logic here
         return pathToSelectedPoint;
+    }
+   public  void SetTrueRamification(int indexOf)
+    {   
+        PathPoint point = pathPoints[indexOf];
+        point.hasRamification = true;
+        pathPoints[indexOf]= point;
     }
 }

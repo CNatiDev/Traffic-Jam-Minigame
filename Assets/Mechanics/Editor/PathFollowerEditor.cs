@@ -22,7 +22,66 @@ public class PathFollowerEditor : Editor
         EditorGUILayout.PropertyField(pathPointsProperty, true);
         serializedObject.ApplyModifiedProperties();
     }
+    private void DrawButtons(Vector3 position, PathFollower.PathPoint pathPoint)
+    {
+        Handles.BeginGUI();
 
+        // Create a Rect for the buttons next to the handle
+        Rect buttonRect = new Rect(HandleUtility.WorldToGUIPoint(position) - new Vector2(30, 50), new Vector2(60, 20));
+
+        GUILayout.BeginArea(new Rect(buttonRect.position, new Vector2(60, 20)));
+        GUILayout.BeginHorizontal();
+
+        if (GUILayout.Button("+", GUILayout.Width(20), GUILayout.Height(20)))
+        {
+            Undo.RecordObject(pathFollower, "Add Ramification Point");
+            Debug.Log("Add");
+            pathPoint.hasRamification = true;
+            pathPoint.ramificationPoints.Add(new PathFollower.RamificationPoint());
+
+        }
+        if (GUILayout.Button("-", GUILayout.Width(20), GUILayout.Height(20)) && pathPoint.ramificationPoints.Count > 0)
+        {
+            Undo.RecordObject(pathFollower, "Remove Ramification Point");
+            Debug.Log("Remove");
+            pathPoint.ramificationPoints.RemoveAt(pathPoint.ramificationPoints.Count - 1);
+        }
+
+        GUILayout.EndHorizontal();
+        GUILayout.EndArea();
+
+        Handles.EndGUI();
+    }
+    private void DrawButtonsRamifications(Vector3 position, PathFollower.RamificationPoint pathPoint, bool hasRam)
+    {
+        Handles.BeginGUI();
+
+        // Create a Rect for the buttons next to the handle
+        Rect buttonRect = new Rect(HandleUtility.WorldToGUIPoint(position) - new Vector2(30, 50), new Vector2(60, 20));
+
+        GUILayout.BeginArea(new Rect(buttonRect.position, new Vector2(60, 20)));
+        GUILayout.BeginHorizontal();
+
+        if (GUILayout.Button("+", GUILayout.Width(20), GUILayout.Height(20)))
+        {
+            Undo.RecordObject(pathFollower, "Add Ramification Point");
+            pathPoint.nestedPathPoints.Add(new PathFollower.PathPoint());
+
+            Debug.Log(pathPoint.hasNestedPoint);
+        }
+        if (GUILayout.Button("-", GUILayout.Width(20), GUILayout.Height(20)) && pathPoint.nestedPathPoints.Count > 0)
+        {
+            Undo.RecordObject(pathFollower, "Remove Ramification Point");
+            Debug.Log("Remove");
+            pathPoint.nestedPathPoints.RemoveAt(pathPoint.nestedPathPoints.Count - 1);
+
+        }
+
+        GUILayout.EndHorizontal();
+        GUILayout.EndArea();
+
+        Handles.EndGUI();
+    }
     private PathFollower.PathPoint DrawHandlesRecursively(PathFollower.PathPoint pathPoint)
     {
         EditorGUI.BeginChangeCheck();
@@ -57,15 +116,23 @@ public class PathFollowerEditor : Editor
                 }
 
                 // Recursively draw handles for nestedPathPoints
-                if (ramificationPoint.hasRamification1)
+                if (ramificationPoint.hasNestedPoint)
                 {
                     for (int k = 0; k < ramificationPoint.nestedPathPoints.Count; k++)
                     {
                         ramificationPoint.nestedPathPoints[k] = DrawHandlesRecursively(ramificationPoint.nestedPathPoints[k]);
+                        // Move DrawButtons outside the EditorGUI.EndChangeCheck block
                     }
                 }
+
+                // Move DrawButtonsRamifications outside the EditorGUI.EndChangeCheck block
+                DrawButtonsRamifications(newRamificationPosition, pathPoint.ramificationPoints[j], pathPoint.ramificationPoints[j].hasNestedPoint);
+
             }
         }
+
+        // Move DrawButtons outside the EditorGUI.EndChangeCheck block
+        DrawButtons(pathPoint.pointPosition, pathPoint);
 
         return pathPoint; // Return the updated path point
     }
@@ -77,10 +144,36 @@ public class PathFollowerEditor : Editor
         for (int i = 0; i < pathFollower.pathPoints.Count; i++)
         {
             pathFollower.pathPoints[i] = DrawHandlesRecursively(pathFollower.pathPoints[i]);
-        }
+            DrawButtons(pathFollower.pathPoints[i].pointPosition, pathFollower.pathPoints[i]);
 
+            // Check if the path point has any ramification or nested points
+            bool hasRamificationsOrNested = HasRamifications(pathFollower.pathPoints[i]);
+            if (hasRamificationsOrNested && !pathFollower.pathPoints[i].hasRamification)
+            {
+                PathFollower.PathPoint point = pathFollower.pathPoints[i];
+                point.hasRamification = true;
+                pathFollower.pathPoints[i] = point;
+            }
+        }
         serializedObject.ApplyModifiedProperties();
     }
 
+    private bool HasRamifications(PathFollower.PathPoint pathPoint)
+    {
+        if (pathPoint.ramificationPoints.Count > 0)
+        {
+            return true;
+        }
 
+        return false;
+    }
+    private bool HasNested(PathFollower.RamificationPoint pathPoint)
+    {
+        if (pathPoint.nestedPathPoints.Count > 0)
+        {
+            return true;
+        }
+
+        return false;
+    }
 }
