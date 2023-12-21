@@ -3,17 +3,9 @@ using UnityEngine;
 /// <summary>
 /// The Rotable class controls the rotation of the object based on a specified position.
 /// </summary>
-public class Rotable : MonoBehaviour, IRotable
+public class Rotatable : MonoBehaviour, IRotatable
 {
     [SerializeField] private float rotationSpeed = 200f;
-
-    private InputHandler inputHandler;
-
-    private void Awake()
-    {
-        inputHandler = GetComponent<InputHandler>();
-        inputHandler.OnRotate += RotateTowards;
-    }
 
     /// <summary>
     /// Rotate the object towards a specified position in world space.

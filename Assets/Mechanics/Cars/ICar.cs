@@ -1,6 +1,7 @@
-public interface IRotable {
+public interface IRotatable {
     void RotateTowards();
 }
-public interface IMoveable { 
+public interface IMoveable {
     void MoveForward();
+    void MoveForwardToPoint();
 }

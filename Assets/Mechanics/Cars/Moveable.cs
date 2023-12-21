@@ -1,29 +1,32 @@
 using UnityEngine;
 
-/// <summary>
-/// The Moveable class controls the movement of the object based on user input.
-/// </summary>
+[RequireComponent(typeof(Rigidbody))]
 public class Moveable : MonoBehaviour, IMoveable
 {
-    [SerializeField] private float moveSpeed = 5f;
+    public float moveSpeed = 5f;
 
-    private InputHandler inputHandler;
+    private Rigidbody rb;
 
-    private void Awake()
+    private void Start()
     {
-
-        inputHandler = GetComponent<InputHandler>();
-        if (inputHandler != null )
-        inputHandler.OnRotate += MoveForward;
+        rb = GetComponent<Rigidbody>();
+        rb.freezeRotation = true; // Freeze rotation to prevent unwanted physics behavior
     }
 
-
     /// <summary>
-    /// Move the object forward in local space.
+    /// Move the object forward using physics.
     /// </summary>
     public void MoveForward()
     {
+        Vector3 movement = transform.forward * moveSpeed * Time.deltaTime;
+        rb.MovePosition(rb.position + movement);
+    }
+
+    public void MoveForwardToPoint()
+    {
         if (Vector3.Distance(transform.position, RaycastUtility.GetMouseRaycastPoint()) > 0.9f)
-            transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime, Space.Self);
+        {
+            MoveForward();
+        }
     }
 }

@@ -13,13 +13,12 @@ public static class RaycastUtility
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-
         if (Physics.Raycast(ray, out hit))
         {
             return hit.point;
-        }
 
-        // If nothing was hit, return a zero vector position.
+        }
         return Vector3.zero;
     }
+
 }
