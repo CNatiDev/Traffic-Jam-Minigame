@@ -3,14 +3,14 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Moveable : MonoBehaviour, IMoveable
 {
-    public float moveSpeed = 5f;
-
     private Rigidbody rb;
-
+    public float moveSpeed = 5;
+    public bool stopCar { get; set; }
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true; // Freeze rotation to prevent unwanted physics behavior
+        stopCar = false;
     }
 
     /// <summary>
@@ -18,14 +18,19 @@ public class Moveable : MonoBehaviour, IMoveable
     /// </summary>
     public void MoveForward()
     {
-        Vector3 movement = transform.forward * moveSpeed * Time.deltaTime;
-        rb.MovePosition(rb.position + movement);
+        if (!stopCar)
+        {
+            Vector3 movement = transform.forward * moveSpeed * Time.deltaTime;
+            rb.MovePosition(rb.position + movement);
+        }
+
     }
 
     public void MoveForwardToPoint()
     {
-        if (Vector3.Distance(transform.position, RaycastUtility.GetMouseRaycastPoint()) > 0.9f)
+        if (Vector3.Distance(transform.position, RaycastUtility.GetMouseRaycastPoint()) > 1.5f)
         {
+            Debug.Log(Vector3.Distance(transform.position, RaycastUtility.GetMouseRaycastPoint()));
             MoveForward();
         }
     }

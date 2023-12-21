@@ -4,4 +4,5 @@ public interface IRotatable {
 public interface IMoveable {
     void MoveForward();
     void MoveForwardToPoint();
+    bool stopCar { get; set; }
 }

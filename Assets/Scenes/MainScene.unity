@@ -244,7 +244,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 224553100}
   m_LocalRotation: {x: -0, y: -0.70710677, z: -0, w: 0.7071069}
-  m_LocalPosition: {x: -12.9, y: 0, z: -0.3}
+  m_LocalPosition: {x: -12.9, y: 0, z: 1.58}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -290,7 +290,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d88a8d1d8a584684086e1ce249eb314e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyTime: 0.2
+  dezactivateTime: 0.3
 --- !u!65 &224553104
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -310,7 +310,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5.2706614, y: 1.7753911, z: 0.7872095}
+  m_Size: {x: 5.22, y: 1.7753911, z: 0.7872095}
   m_Center: {x: 0.030852795, y: 0.38769555, z: -0.99607897}
 --- !u!1 &274292330
 GameObject:
@@ -374,8 +374,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   carPool: {fileID: 1574413255}
-  spawnTime: 1.5
-  spawnInterval: {x: 1.5, y: 7}
+  spawnTime: 1
+  dezactivatorPosition: {fileID: 338431463}
+  spawnInterval: {x: 2, y: 6}
 --- !u!4 &278205920
 Transform:
   m_ObjectHideFlags: 0
@@ -418,7 +419,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 338431462}
   m_LocalRotation: {x: -0, y: -0.70710677, z: -0, w: 0.7071069}
-  m_LocalPosition: {x: 10.8, y: 0, z: -0.3}
+  m_LocalPosition: {x: 10.8, y: 0, z: -1.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -464,7 +465,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d88a8d1d8a584684086e1ce249eb314e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyTime: 0.2
+  dezactivateTime: 0.3
 --- !u!65 &338431466
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -484,7 +485,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5.2706614, y: 1.7753911, z: 0.7872095}
+  m_Size: {x: 5.22, y: 1.7753911, z: 0.7872095}
   m_Center: {x: 0.030852795, y: 0.38769555, z: -0.99607897}
 --- !u!1 &374513174
 GameObject:
@@ -513,7 +514,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 374513174}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10.9}
+  m_LocalPosition: {x: -1.5, y: 0, z: -10.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -539,7 +540,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5.2706614, y: 1.7753911, z: 0.7872095}
+  m_Size: {x: 5.22, y: 1.7753911, z: 0.7872095}
   m_Center: {x: 0.030852795, y: 0.38769555, z: -0.99607897}
 --- !u!114 &374513177
 MonoBehaviour:
@@ -553,7 +554,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d88a8d1d8a584684086e1ce249eb314e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyTime: 0.2
+  dezactivateTime: 0.3
 --- !u!54 &374513178
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -891,7 +892,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   carPool: {fileID: 1228431397}
-  spawnTime: 0.7
+  spawnTime: 1
+  dezactivatorPosition: {fileID: 1811738611}
   spawnInterval: {x: 2, y: 7}
 --- !u!4 &1129656963
 Transform:
@@ -989,6 +991,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1158250851}
+  - component: {fileID: 1158250852}
   m_Layer: 0
   m_Name: -------------NPC-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     (3)
@@ -1012,6 +1015,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1158250852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1158250850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2050db8379b08e4b9a4a37b7a27983d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxNpcActive: 6
+  carNpcs: []
+  canSpawn: 0
 --- !u!1 &1228431396
 GameObject:
   m_ObjectHideFlags: 0
@@ -1088,8 +1106,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   carPool: {fileID: 1574413255}
-  spawnTime: 3
-  spawnInterval: {x: 2.2, y: 7}
+  spawnTime: 1
+  dezactivatorPosition: {fileID: 224553101}
+  spawnInterval: {x: 2, y: 4}
 --- !u!4 &1371303636
 Transform:
   m_ObjectHideFlags: 0
@@ -1213,8 +1232,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   carPool: {fileID: 1228431397}
-  spawnTime: 2
-  spawnInterval: {x: 2, y: 7}
+  spawnTime: 1
+  dezactivatorPosition: {fileID: 374513175}
+  spawnInterval: {x: 2, y: 5}
 --- !u!4 &1733470058
 Transform:
   m_ObjectHideFlags: 0
@@ -1257,7 +1277,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1811738610}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 13.1}
+  m_LocalPosition: {x: 1.52, y: 0, z: 13.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1303,7 +1323,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d88a8d1d8a584684086e1ce249eb314e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyTime: 0.2
+  dezactivateTime: 0.3
 --- !u!65 &1811738614
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1323,7 +1343,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5.2706614, y: 1.7753911, z: 0.7872095}
+  m_Size: {x: 5.22, y: 1.7753911, z: 0.7872095}
   m_Center: {x: 0.030852795, y: 0.38769555, z: -0.99607897}
 --- !u!1001 &4866717990494514773
 PrefabInstance:
@@ -1343,7 +1363,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4197022203174935418, guid: 712d4eb5b9d8b6b4baf8086497ab64c4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.05
+      value: 5.49
       objectReference: {fileID: 0}
     - target: {fileID: 4197022203174935418, guid: 712d4eb5b9d8b6b4baf8086497ab64c4, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1351,7 +1371,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4197022203174935418, guid: 712d4eb5b9d8b6b4baf8086497ab64c4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -10.1
+      value: -6.48
       objectReference: {fileID: 0}
     - target: {fileID: 4197022203174935418, guid: 712d4eb5b9d8b6b4baf8086497ab64c4, type: 3}
       propertyPath: m_LocalRotation.w

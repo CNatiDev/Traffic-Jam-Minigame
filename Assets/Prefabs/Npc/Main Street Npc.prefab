@@ -55,7 +55,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4992808949143431282}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.74, y: 0.264, z: 2.06}
+  m_LocalPosition: {x: 0.74, y: 0.264, z: 3.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -86,7 +86,38 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5298554416108144656}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.74, y: 0.264, z: 2.06}
+  m_LocalPosition: {x: -0.74, y: 0.264, z: 3.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5853378470403479979}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7546182935175626529
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 454271196469036811}
+  m_Layer: 0
+  m_Name: ProximitySensor (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &454271196469036811
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7546182935175626529}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.02, y: 0.264, z: 1.53}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -181,6 +212,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 74dabe2245b541c40954552fefddae6f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7554916338571694147}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 74dabe2245b541c40954552fefddae6f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 454271196469036811}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 74dabe2245b541c40954552fefddae6f, type: 3}
       insertIndex: -1
@@ -197,6 +231,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 74dabe2245b541c40954552fefddae6f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8264616872311440597}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 74dabe2245b541c40954552fefddae6f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1629878184814085720}
   m_SourcePrefab: {fileID: 100100000, guid: 74dabe2245b541c40954552fefddae6f, type: 3}
 --- !u!4 &5853378470403479979 stripped
 Transform:
@@ -233,7 +270,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee8f42448ff816d4291bb2be019a7be2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainStreetCar: 0
+  mainStreetCar: 1
+  dezactivatorPosition: {fileID: 0}
 --- !u!64 &-5481129488497338719
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -280,9 +318,9 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 84
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &8264616872311440597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -295,10 +333,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebe56719946fcb54b9f7bf2881e7c930, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minDistance: 2.48
-  npcTag: Npc
-  frontSensorPosition: {fileID: 8368157438100149160}
+  minDistance: 4.34
+  detectedObjectTag: Npc
+  frontLineSensor: {fileID: 8368157438100149160}
+  frontSphereSensor: {fileID: 454271196469036811}
   LSensorPosition: {fileID: 2584256158986209712}
   RSensorPosition: {fileID: 7554916338571694147}
-  LRSensorRange: 0.65
-  isMain: 0
+  sphereSensorRange: 0.82
+  sphereFrontSensorRange: 1.39
+  isFacingOnMainStreet: 1
+--- !u!114 &1629878184814085720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6516902279187120913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a100ec4d872ce134f923b43252cde08c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 200
+  point: {fileID: 0}

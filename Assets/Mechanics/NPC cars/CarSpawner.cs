@@ -15,7 +15,7 @@ public class CarSpawner : MonoBehaviour
     /// Spawn interval in seconds.
     /// </summary>
     public float spawnTime;
-
+    public Transform dezactivatorPosition;
     public Vector2 spawnInterval = Vector2.zero;
     void Start()
     {
@@ -32,7 +32,8 @@ public class CarSpawner : MonoBehaviour
         {
             yield return new WaitForSeconds(spawnTime);
             spawnTime = Random.RandomRange(spawnInterval.x, spawnInterval.y);
-            SpawnCar();
+            if (SpawnerManager.Instance.canSpawn)
+                SpawnCar();
         }
     }
 
@@ -42,7 +43,7 @@ public class CarSpawner : MonoBehaviour
     void SpawnCar()
     {
         GameObject car = carPool.GetPooledObject();
-
+        car.GetComponent<NpcRotable>().point = dezactivatorPosition;
         if (car != null)
         {
             // Set the position and rotation of the spawned car.
