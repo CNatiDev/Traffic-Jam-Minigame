@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -20,6 +21,11 @@ public class GameManager : MonoBehaviour
     [Header("NPC")]
     public int maxActiveNpcCar;
     public float npcSpeed;
+    [Header("UI")]
+    public TextMeshProUGUI moneyCountText;
+    public TextMeshProUGUI finalScoreText;
+    [Header("Level Time")]
+    public float levelTime;
     private void Awake()
     {
         instance = this;
@@ -30,4 +36,5 @@ public class GameManager : MonoBehaviour
         if(playerCar.GetComponent<IMoveable>()!=null)
             playerCar.GetComponent<IMoveable>().carSpeed = playerCarSpeed;
     }
+    
 }

@@ -4,13 +4,19 @@ using UnityEngine;
 
 public class NpcCollide : MonoBehaviour
 {
-
     public int hitBill;
+    private GameManager gameManager;
+    private void Start()
+    {
+        gameManager = GameManager.Instance;
+    }
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Npc"))
         {
-            GameManager.Instance.playerMoneyCount -= hitBill;
+            gameManager.playerMoneyCount -= hitBill;
+            gameManager.moneyCountText.text = StringUtility.FormatMoney(gameManager.playerMoneyCount);
+            
         }
     }
 }
