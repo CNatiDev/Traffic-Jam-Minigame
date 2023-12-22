@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class SliderTimer : MonoBehaviour
+public class LoadSceneAfterFill : MonoBehaviour
 {
     private Slider gameOverSlider;
     public float fillTime = 5f; // Time interval in seconds to fill the slider to the maximum
-
+    public string sceneName;
     private void Start()
     {
         // Make sure you have a reference to the Slider component attached to the object
@@ -40,7 +41,6 @@ public class SliderTimer : MonoBehaviour
 
         // Make sure the slider reaches the maximum value at the end of the time interval
         gameOverSlider.value = 1f;
-
-        // You can add any additional actions here after the slider has been filled to the maximum
+        SceneManager.LoadScene(sceneName);
     }
 }

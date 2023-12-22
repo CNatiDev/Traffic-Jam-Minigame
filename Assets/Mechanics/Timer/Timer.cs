@@ -7,7 +7,7 @@ public class Timer : MonoBehaviour
 
     public TextMeshProUGUI timeText;
     public GameObject gameOverPanel;
-    public SliderTimer sliderTimer;
+    public LoadSceneAfterFill sliderTimer;
     void Start()
     {
         // Start the timer

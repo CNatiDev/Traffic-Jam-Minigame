@@ -746,7 +746,7 @@ MonoBehaviour:
   npcSpeed: 5
   moneyCountText: {fileID: 1132426089}
   finalScoreText: {fileID: 1837711654}
-  levelTime: 4
+  levelTime: 30
 --- !u!4 &453919781
 Transform:
   m_ObjectHideFlags: 0
@@ -975,6 +975,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fillTime: 3
+  sceneName: MainMenu
 --- !u!4 &876460314 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5680d42f0ed6423488a34a91bf15c45b, type: 3}
