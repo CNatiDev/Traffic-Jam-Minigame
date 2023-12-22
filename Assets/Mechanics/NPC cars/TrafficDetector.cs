@@ -3,7 +3,7 @@ using UnityEngine;
 /// <summary>
 /// Represents a proximity sensor for detecting obstacles in the environment.
 /// </summary>
-public class ProximitySensor : MonoBehaviour
+public class TrafficDetector : MonoBehaviour
 {
     [Header("Sensor Settings")]
     [Tooltip("Minimum distance to consider an obstacle.")]
@@ -36,7 +36,7 @@ public class ProximitySensor : MonoBehaviour
     private const int MaxColliders = 10; // Adjust as needed
 
     /// <summary>
-    /// Draws gizmos for visualization in the editor.
+    /// Draws gizmos for visualization in the editor.   
     /// </summary>
     private void OnDrawGizmos()
     {

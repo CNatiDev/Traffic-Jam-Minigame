@@ -27,41 +27,31 @@ public class SpawnerManager : MonoBehaviour
     }
 
     /// <summary>
-    /// The maximum number of active NPCs in the scene.
-    /// </summary>
-    public float maxNpcActive;
-
-    /// <summary>
     /// Array of NPC prefabs that can be spawned.
     /// </summary>
     public GameObject[] carNpcs;
 
     /// <summary>
-    /// Flag indicating whether spawning is allowed.
+    /// Checks if it is currently allowed to spawn a new non-player controlled character (NPC) based on the maximum active NPC limit set by the GameManager.
     /// </summary>
-    public bool canSpawn;
-
-    // Start is called before the first frame update
-    private void Start()
+    /// <returns>
+    /// Returns true if spawning is allowed (i.e., the current number of active NPCs is below the maximum limit), and false otherwise.
+    /// </returns>
+    public bool canSpawn()
     {
-        Debug.Log(Time.time);
-    }
-
-    // Update is called once per frame
-    private void Update()
-    {
-        // Find all NPCs in the scene
+        // Find all active NPCs in the scene with the "Npc" tag
         carNpcs = GameObject.FindGameObjectsWithTag("Npc");
 
-        // Check if the number of active NPCs exceeds the limit and spawning is allowed
-        if (carNpcs.Length > maxNpcActive && canSpawn)
+        // Check if the number of active NPCs exceeds the limit specified by GameManager.Instance.maxActiveNpcCar - 1
+        // Note: The "- 1" accounts for zero-based indexing.
+        if (carNpcs.Length > GameManager.Instance.maxActiveNpcCar - 1)
         {
-            canSpawn = false;
-            Debug.Log(Time.time);
+            // Return false if spawning is not allowed
+            return false;
         }
-        else
-        {
-            canSpawn = true;
-        }
+
+        // Return true if spawning is allowed
+        return true;
     }
+
 }

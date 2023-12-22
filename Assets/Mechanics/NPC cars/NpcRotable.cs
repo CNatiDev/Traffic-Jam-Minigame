@@ -1,5 +1,4 @@
 using UnityEngine;
-
 /// <summary>
 /// Represents a rotatable non-player controlled character in the game.
 /// </summary>
@@ -7,21 +6,15 @@ public class NpcRotable : MonoBehaviour, IRotatable
 {
     [SerializeField] private float rotationSpeed = 200f;
 
-    /// <summary>
-    /// The target point to rotate towards.
-    /// </summary>
-    public Transform point;
+    public Vector3 targetPoint { get; set; }
+
 
     /// <summary>
     /// Rotate the object towards a specified position in world space.
     /// </summary>
     public void RotateTowards()
     {
-        // Check if a target point is assigned
-        if (point != null)
-        {
-            Vector3 targetPosition = point.position;
-            Vector3 direction = targetPosition - transform.position;
+            Vector3 direction = targetPoint - transform.position;
             direction.y = 0f;
 
             // Calculate the target rotation based on the direction
@@ -29,6 +22,5 @@ public class NpcRotable : MonoBehaviour, IRotatable
 
             // Smoothly rotate towards the target rotation
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-        }
     }
 }

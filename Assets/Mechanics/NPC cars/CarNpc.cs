@@ -21,7 +21,7 @@ public class CarNpc : MonoBehaviour
     private IRotatable carRotate;
 
     // Proximity sensor to detect nearby obstacles
-    private ProximitySensor proximitySensor;
+    private TrafficDetector proximitySensor;
 
     // Flag indicating whether the car is on the main street, for the sensor to know if need to ignore th car
     public bool mainStreetCar;
@@ -38,7 +38,7 @@ public class CarNpc : MonoBehaviour
         // Initialize interfaces and events
         carMove = GetComponent<IMoveable>();
         carRotate = GetComponent<IRotatable>();
-        proximitySensor = GetComponent<ProximitySensor>();
+        proximitySensor = GetComponent<TrafficDetector>();
 
         // Subscribe methods to events
         OnMove += carMove.MoveForward;
@@ -55,6 +55,7 @@ public class CarNpc : MonoBehaviour
 
         // Trigger move and rotate events
         OnMove();
+
         OnRotate();
     }
 }

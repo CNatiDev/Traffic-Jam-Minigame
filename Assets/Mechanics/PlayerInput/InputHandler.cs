@@ -49,6 +49,8 @@ public class InputHandler : MonoBehaviour
         {
             // Trigger move and rotate events
             OnMove();
+
+            rotatable.targetPoint = RaycastUtility.GetMouseRaycastPoint();
             OnRotate();
         }
     }

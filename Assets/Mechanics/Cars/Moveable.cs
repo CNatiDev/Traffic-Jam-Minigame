@@ -4,8 +4,8 @@ using UnityEngine;
 public class Moveable : MonoBehaviour, IMoveable
 {
     private Rigidbody rb;
-    public float moveSpeed = 5;
     public bool stopCar { get; set; }
+    public float carSpeed { get; set; }
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -20,7 +20,7 @@ public class Moveable : MonoBehaviour, IMoveable
     {
         if (!stopCar)
         {
-            Vector3 movement = transform.forward * moveSpeed * Time.deltaTime;
+            Vector3 movement = transform.forward * carSpeed * Time.deltaTime;
             rb.MovePosition(rb.position + movement);
         }
 
@@ -30,7 +30,6 @@ public class Moveable : MonoBehaviour, IMoveable
     {
         if (Vector3.Distance(transform.position, RaycastUtility.GetMouseRaycastPoint()) > 1.5f)
         {
-            Debug.Log(Vector3.Distance(transform.position, RaycastUtility.GetMouseRaycastPoint()));
             MoveForward();
         }
     }
