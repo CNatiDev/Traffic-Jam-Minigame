@@ -3,7 +3,7 @@ using UnityEngine;
 /// <summary>
 /// Represents a rotatable non-player controlled character in the game.
 /// </summary>
-public class NpcRotable : MonoBehaviour, IRotatable
+public class BlueCarRotable : MonoBehaviour, IRotatable
 {
     [SerializeField] private float rotationSpeed = 200f;
 

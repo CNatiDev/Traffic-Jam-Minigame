@@ -105,7 +105,7 @@ public class TrafficDetector : MonoBehaviour
         {
             if (colliders[i].CompareTag(detectedObjectTag) &&
                 colliders[i].transform != transform &&
-                colliders[i].TryGetComponent<CarNpc>(out var carNpc) &&
+                colliders[i].TryGetComponent<BlueTrafficCar>(out var carNpc) &&
                 carNpc.mainStreetCar != isMain)
             {
                 return true;

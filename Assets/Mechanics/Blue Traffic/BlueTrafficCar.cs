@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Represents a non-player controlled car in the game.
 /// </summary>
-public class CarNpc : MonoBehaviour
+public class BlueTrafficCar : MonoBehaviour
 {
     /// <summary>
     /// Event triggered when the car is supposed to move.

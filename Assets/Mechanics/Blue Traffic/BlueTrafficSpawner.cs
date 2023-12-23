@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Responsible for spawning cars using an object pool at regular intervals.
 /// </summary>
-public class CarSpawner : MonoBehaviour
+public class BlueTrafficSpawner : MonoBehaviour
 {
     /// <summary>
     /// Reference to the object pool for cars.

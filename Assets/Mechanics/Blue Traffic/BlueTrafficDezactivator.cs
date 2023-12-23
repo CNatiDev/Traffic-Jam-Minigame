@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Deactivates NPCs upon entering the trigger zone.
 /// </summary>
-public class DezactivateNpc : MonoBehaviour
+public class BlueTrafficDezactivator : MonoBehaviour
 {
     /// <summary>
     /// Time delay before destroying the NPC after entering the trigger zone.

@@ -10,26 +10,22 @@ public class MoneyValue : MonoBehaviour
     /// </summary>
     public int value;
 
+    /// <summary>
+    /// The particle system that will play when the money is collected
+    /// </summary>
     public ParticleSystem particleSystem;
+
     /// <summary>
     /// Reference to the GameManager.
     /// </summary>
     private GameManager gameManager;
 
-    
-    /// <summary>
-    /// Called when the script is started.
-    /// </summary>
     private void Start()
     {
         // Get a reference to the GameManager instance.
         gameManager = GameManager.Instance;
     }
 
-    /// <summary>
-    /// Called when another Collider enters the trigger zone.
-    /// </summary>
-    /// <param name="other">The Collider of the entering object.</param>
     private void OnTriggerEnter(Collider other)
     {
         // Check if the entering object has the "Player" tag.

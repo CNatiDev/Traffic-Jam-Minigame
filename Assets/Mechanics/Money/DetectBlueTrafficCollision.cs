@@ -5,12 +5,16 @@ using UnityEngine;
 /// <summary>
 /// A class responsible for detecting hits on NPC game objects.
 /// </summary>
-public class DetectNpcHit : MonoBehaviour
+public class DetectBlueTrafficCollision : MonoBehaviour
 {
     /// <summary>
     /// The amount of money subtracted from `gameManager.playerMoneyCount` when the player collides with an NPC.
     /// </summary>
     public int hitBill;
+
+    /// <summary>
+    /// ParticleSystem for hit npc car effect
+    /// </summary>
     public ParticleSystem hitEffect;
 
     private GameManager gameManager;
@@ -21,10 +25,6 @@ public class DetectNpcHit : MonoBehaviour
         gameManager = GameManager.Instance;
     }
 
-    /// <summary>
-    /// Called when a collision occurs with another game object.
-    /// </summary>
-    /// <param name="collision">The Collision object representing the collision.</param>
     private void OnCollisionEnter(Collision collision)
     {
         // Check if the collided object has the "Npc" tag
