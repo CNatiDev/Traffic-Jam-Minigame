@@ -1,13 +1,14 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class Timer : MonoBehaviour
+public class SceneTime : MonoBehaviour
 {
     private float currentTime;
 
     public TextMeshProUGUI timeText;
-    public GameObject gameOverPanel;
-    public LoadSceneAfterFill sliderTimer;
+    public UnityEvent invokeAfterTime;
+
     void Start()
     {
         // Start the timer
@@ -21,9 +22,6 @@ public class Timer : MonoBehaviour
 
         // Display the seconds and next 2 milliseconds in the TextMeshProUGUI component
         UpdateTimeText();
-
-        // For debugging, you can still log the values to the console
-        Debug.Log($"Seconds: {Mathf.FloorToInt(currentTime)} | Milliseconds: {(currentTime % 1) * 1000:F2}");
     }
 
     void StartTimer()
@@ -42,8 +40,7 @@ public class Timer : MonoBehaviour
         {
             var gameManager = GameManager.Instance;
             gameManager.finalScoreText.text = StringUtility.FormatMoney(gameManager.playerMoneyCount);
-            gameOverPanel.SetActive(true);
-            sliderTimer.StartFillSlider();
+            invokeAfterTime.Invoke();
             currentTime = 0;
         }
     }

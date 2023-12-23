@@ -20,14 +20,23 @@ public class InputHandler : MonoBehaviour
     private IMoveable moveable;
     private IRotatable rotatable;
 
+
+    //Game Manager instance for getting player GameObject
+    private GameManager gameManager;
+
     /// <summary>
-    /// Awake is called when the script instance is being loaded.
+    /// Gets a value indicating whether the object should move.
     /// </summary>
-    private void Awake()
+    public bool move { get; private set; }
+
+    private void Start()
     {
+        //Assign gameManager with Game Manager instance, using Singleton
+        gameManager = GameManager.Instance;
+
         // Initialize interfaces and events
-        moveable = GetComponent<IMoveable>();
-        rotatable = GetComponent<IRotatable>();
+        moveable = gameManager.playerCar.GetComponent<IMoveable>();
+        rotatable = gameManager.playerCar.GetComponent<IRotatable>();
 
         // Subscribe methods to events if the corresponding interfaces are implemented
         if (moveable != null)
@@ -35,12 +44,6 @@ public class InputHandler : MonoBehaviour
         if (rotatable != null)
             OnRotate += rotatable.RotateTowards;
     }
-
-    /// <summary>
-    /// Gets a value indicating whether the object should move.
-    /// </summary>
-    public bool move { get; private set; }
-
     private void FixedUpdate()
     {
         // Check for user input and mouse position

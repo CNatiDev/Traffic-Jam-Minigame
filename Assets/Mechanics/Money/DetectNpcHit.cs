@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NpcCollide : MonoBehaviour
+public class DetectNpcHit : MonoBehaviour
 {
     public int hitBill;
     private GameManager gameManager;
