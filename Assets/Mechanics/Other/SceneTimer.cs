@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class SceneTime : MonoBehaviour
+public class SceneTimer : MonoBehaviour
 {
     private float currentTime;
 

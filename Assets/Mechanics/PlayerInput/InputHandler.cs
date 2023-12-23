@@ -20,8 +20,7 @@ public class InputHandler : MonoBehaviour
     private IMoveable moveable;
     private IRotatable rotatable;
 
-
-    //Game Manager instance for getting player GameObject
+    // Game Manager instance for getting player GameObject
     private GameManager gameManager;
 
     /// <summary>
@@ -31,7 +30,7 @@ public class InputHandler : MonoBehaviour
 
     private void Start()
     {
-        //Assign gameManager with Game Manager instance, using Singleton
+        // Assign gameManager with Game Manager instance, using Singleton
         gameManager = GameManager.Instance;
 
         // Initialize interfaces and events
@@ -44,6 +43,7 @@ public class InputHandler : MonoBehaviour
         if (rotatable != null)
             OnRotate += rotatable.RotateTowards;
     }
+
     private void FixedUpdate()
     {
         // Check for user input and mouse position
@@ -53,6 +53,7 @@ public class InputHandler : MonoBehaviour
             // Trigger move and rotate events
             OnMove();
 
+            // Set the target point for rotation and trigger rotation event
             rotatable.targetPoint = RaycastUtility.GetMouseRaycastPoint();
             OnRotate();
         }

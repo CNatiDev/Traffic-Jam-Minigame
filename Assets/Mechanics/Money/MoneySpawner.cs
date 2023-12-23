@@ -1,19 +1,38 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+/// <summary>
+/// The MoneySpawner class handles the spawning of money objects within a specified radius.
+/// </summary>
 public class MoneySpawner : MonoBehaviour
 {
-    public GameObject[] moneyPrefabs; // Prefab of the money note
-    public float spawnInterval = 2f; // Time interval for spawning money
-    public float spawnRadius = 5f; // Radius within which money will be spawned
+    /// <summary>
+    /// Prefabs of the money notes to be spawned.
+    /// </summary>
+    public GameObject[] moneyPrefabs;
+
+    /// <summary>
+    /// Time interval for spawning money.
+    /// </summary>
+    public float spawnInterval = 2f;
+
+    /// <summary>
+    /// Radius within which money will be spawned.
+    /// </summary>
+    public float spawnRadius = 5f;
+
+    /// <summary>
+    /// Array to store currently active money objects.
+    /// </summary>
     public GameObject[] activeMoney;
 
-    int randomIndex = 0;
-    private float timer;
+    private float timer;  // Countdown timer for spawning money
     private List<GameObject> moneyPool;
+    private int randomIndex;
 
     void Start()
     {
+        // Initialize the timer and money pool
         timer = spawnInterval;
         moneyPool = new List<GameObject>();
     }
@@ -23,15 +42,20 @@ public class MoneySpawner : MonoBehaviour
         // Countdown timer for spawning money
         timer -= Time.deltaTime;
 
+        // Retrieve currently active money objects
         activeMoney = GameObject.FindGameObjectsWithTag("Money");
-        if (timer <= 0f)
-        {   if (activeMoney.Length > GameManager.Instance.maxActiveMoneyObjects - 1) return;
-            SpawnMoney();
-            timer = spawnInterval;
-        }
 
+        // Check if it's time to spawn money and if the maximum number of active money objects is not reached
+        if (timer <= 0f && activeMoney.Length < GameManager.Instance.maxActiveMoneyObjects)
+        {
+            SpawnMoney();
+            timer = spawnInterval;  // Reset the timer
+        }
     }
 
+    /// <summary>
+    /// Spawns a money object within the specified spawn radius.
+    /// </summary>
     void SpawnMoney()
     {
         // Get or create money from the object pool
@@ -45,6 +69,10 @@ public class MoneySpawner : MonoBehaviour
         money.SetActive(true);
     }
 
+    /// <summary>
+    /// Retrieves or creates a money object from the object pool.
+    /// </summary>
+    /// <returns>The money object.</returns>
     GameObject GetOrCreateMoney()
     {
         // Check if there is an inactive money object in the pool
@@ -54,9 +82,9 @@ public class MoneySpawner : MonoBehaviour
                 return money;
         }
 
-        randomIndex = Random.RandomRange(0, moneyPrefabs.Length);
-        GameObject moneyPrefab = moneyPrefabs[randomIndex];
         // If no inactive object found, instantiate a new one and add it to the pool
+        randomIndex = Random.Range(0, moneyPrefabs.Length);
+        GameObject moneyPrefab = moneyPrefabs[randomIndex];
         GameObject newMoney = Instantiate(moneyPrefab);
         moneyPool.Add(newMoney);
 
@@ -65,9 +93,12 @@ public class MoneySpawner : MonoBehaviour
 
         return newMoney;
     }
+
+    /// <summary>
+    /// Draws the spawn radius in the Scene view for visualization purposes.
+    /// </summary>
     void OnDrawGizmos()
     {
-        // Draw spawn radius in Scene view
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, spawnRadius);
     }
