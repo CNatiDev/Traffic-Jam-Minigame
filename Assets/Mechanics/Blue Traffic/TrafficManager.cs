@@ -3,15 +3,15 @@ using UnityEngine;
 /// <summary>
 /// Manages the spawning of non-player controlled characters (NPCs) in the game.
 /// </summary>
-public class SpawnerManager : MonoBehaviour
+public class TrafficManager : MonoBehaviour
 {
     // Singleton instance
-    private static SpawnerManager instance;
+    private static TrafficManager instance;
 
     /// <summary>
     /// Gets the singleton instance of the SpawnerManager.
     /// </summary>
-    public static SpawnerManager Instance
+    public static TrafficManager Instance
     {
         get
         {
@@ -31,6 +31,12 @@ public class SpawnerManager : MonoBehaviour
     /// </summary>
     public GameObject[] carNpcs;
 
+    private GameManager gameManager;
+
+    private void Start()
+    {
+         gameManager  = GameManager.Instance;
+    }
     /// <summary>
     /// Checks if it is currently allowed to spawn a new non-player controlled character (NPC) based on the maximum active NPC limit set by the GameManager.
     /// </summary>
@@ -44,7 +50,7 @@ public class SpawnerManager : MonoBehaviour
 
         // Check if the number of active NPCs exceeds the limit specified by GameManager.Instance.maxActiveNpcCar - 1
         // Note: The "- 1" accounts for zero-based indexing.
-        if (carNpcs.Length > GameManager.Instance.maxActiveNpcCar - 1)
+        if (carNpcs.Length >gameManager.maxActiveNpcCar - 1)
         {
             // Return false if spawning is not allowed
             return false;

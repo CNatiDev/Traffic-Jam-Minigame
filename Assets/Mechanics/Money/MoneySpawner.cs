@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 /// <summary>
 /// The MoneySpawner class handles the spawning of money objects within a specified radius.
@@ -79,7 +80,11 @@ public class MoneySpawner : MonoBehaviour
         foreach (GameObject money in moneyPool)
         {
             if (!money.activeInHierarchy)
+            {
+                money.GetComponentInChildren<MoneyValue>().GetComponent<MeshRenderer>().enabled = true;
+                money.GetComponentInChildren<MoneyValue>().GetComponent<Collider>().enabled = true;
                 return money;
+            }
         }
 
         // If no inactive object found, instantiate a new one and add it to the pool
@@ -88,8 +93,10 @@ public class MoneySpawner : MonoBehaviour
         GameObject newMoney = Instantiate(moneyPrefab);
         moneyPool.Add(newMoney);
 
+
         // Disable the new money object by default
         newMoney.SetActive(false);
+
 
         return newMoney;
     }
@@ -102,4 +109,5 @@ public class MoneySpawner : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, spawnRadius);
     }
+
 }

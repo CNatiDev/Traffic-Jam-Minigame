@@ -135,7 +135,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   value: 5000
-  particleSystem: {fileID: 1564613024666697603}
+  dezactivateParentAfterTime: 2
+  collectEffect: {fileID: 1564613024666697603}
 --- !u!1001 &5577450936858557844
 PrefabInstance:
   m_ObjectHideFlags: 0

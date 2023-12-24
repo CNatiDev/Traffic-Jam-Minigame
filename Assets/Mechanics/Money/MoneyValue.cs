@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -10,10 +11,12 @@ public class MoneyValue : MonoBehaviour
     /// </summary>
     public int value;
 
+    public float dezactivateParentAfterTime;
+
     /// <summary>
     /// The particle system that will play when the money is collected
     /// </summary>
-    public ParticleSystem particleSystem;
+    public ParticleSystem collectEffect;
 
     /// <summary>
     /// Reference to the GameManager.
@@ -32,7 +35,7 @@ public class MoneyValue : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             //Play the collect effect
-            particleSystem.Play();
+            collectEffect.Play();
 
             // Add the money value to the player's total money count.
             gameManager.playerMoneyCount += value;
@@ -40,8 +43,19 @@ public class MoneyValue : MonoBehaviour
             // Update the money count text in the UI.
             gameManager.moneyCountText.text = StringUtility.FormatMoney(gameManager.playerMoneyCount);
 
+            StartCoroutine(DezactivateParent(dezactivateParentAfterTime, gameObject.transform.parent.gameObject));
+
+
             // Deactivate the money pickup object.
-            gameObject.SetActive(false);
+            gameObject.GetComponent<MeshRenderer>().enabled = false;
+            gameObject.GetComponent<Collider>().enabled = false;
         }
+    }
+
+    IEnumerator DezactivateParent(float dezactivateAfterTime, GameObject parent)
+    {
+        yield return new WaitForSeconds(dezactivateAfterTime);
+        parent.SetActive(false);
+
     }
 }

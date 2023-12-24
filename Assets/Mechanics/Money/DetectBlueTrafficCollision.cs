@@ -38,6 +38,9 @@ public class DetectBlueTrafficCollision : MonoBehaviour
 
             // Play hit effect at the collision point
             PlayHitEffect(collision.contacts[0].point);
+
+            //Remove the car from the board by deactivating it.
+            collision.gameObject.SetActive(false);
         }
     }
 

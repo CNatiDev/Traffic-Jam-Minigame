@@ -26,7 +26,7 @@ public class InputHandler : MonoBehaviour
     /// <summary>
     /// Gets a value indicating whether the object should move.
     /// </summary>
-    public bool move { get; private set; }
+    public bool CanMove { get; private set; }
 
     private void Start()
     {
@@ -47,8 +47,8 @@ public class InputHandler : MonoBehaviour
     private void FixedUpdate()
     {
         // Check for user input and mouse position
-        move = Input.GetMouseButton(0);
-        if (move && RaycastUtility.GetMouseRaycastPoint() != Vector3.zero)
+        CanMove = Input.GetMouseButton(0);
+        if (CanMove && RaycastUtility.GetMouseRaycastPoint() != Vector3.zero)
         {
             // Trigger move and rotate events
             OnMove();

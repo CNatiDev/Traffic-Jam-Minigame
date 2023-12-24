@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Responsible for spawning cars using an object pool at regular intervals.
 /// </summary>
-public class BlueTrafficSpawner : MonoBehaviour
+public class TrafficSpawner : MonoBehaviour
 {
     /// <summary>
     /// Reference to the object pool for cars.
@@ -31,8 +31,8 @@ public class BlueTrafficSpawner : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(spawnTime);
-            spawnTime = Random.RandomRange(spawnInterval.x, spawnInterval.y);
-            if (SpawnerManager.Instance.canSpawn())
+            spawnTime = Random.Range(spawnInterval.x, spawnInterval.y);
+            if (TrafficManager.Instance.canSpawn())
                 SpawnCar();
         }
     }

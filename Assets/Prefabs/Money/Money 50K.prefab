@@ -283,7 +283,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   value: 50000
-  particleSystem: {fileID: 8074547812957776325}
+  dezactivateParentAfterTime: 2
+  collectEffect: {fileID: 8074547812957776325}
 --- !u!4 &7634857938335870542 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 65ec8324f75910a47b02b57a14b6fc55, type: 3}
